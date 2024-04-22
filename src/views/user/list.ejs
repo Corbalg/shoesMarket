@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('../partials/head.ejs', {title: 'Administrar usuarios', style: '/user/list'})%>
+<body>
+    <%-include('../partials/header.ejs')%>
+    <main>
+        <div class="title">
+            <h1>Usuarios</h1>
+        </div>
+        <% if (users.length > 0) {%>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>EMAIL</th>
+                    <th>CATEGORIA</th>
+                    <th>ELIMINAR</th>
+                </tr>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <th><%= user.id %></th>
+                        <td><%= user.name %></td>
+                        <td><%= user.last_name %></td>
+                        <td><%= user.email %></td>
+                        <td>
+                            <% if (user.admin == 1) { %>
+                                <form action="/user/toclient/<%= user.id %>?_method=PUT" method="POST" class="toclient-form">
+                                    <div>
+                                        <button type="submit" class="icon-button">Administrador</button>
+                                    </div>
+                                </form> 
+                            <% } else { %>
+                                <form action="/user/toadmin/<%= user.id %>?_method=PUT" method="POST" class="toadmin-form">
+                                    <div>
+                                        <button type="submit" class="icon-button">Cliente</button>
+                                    </div>
+                                </form> 
+                            <% } %>
+                        </td>
+                        <td>
+                            <form action="/user/delete/<%= user.id %>?_method=DELETE" method="POST">
+                                <div>
+                                    <button type="submit" class="icon-button"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </form> 
+                        </td>
+                    </tr>
+                <% }) %>
+            </table>
+        <% } %>
+    </main>
+    <%-include('../partials/footer.ejs')%>
+    <script src="/js/userList.js"></script>
+</body>
+</html>

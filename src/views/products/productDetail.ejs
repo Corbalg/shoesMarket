@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%-include('../partials/head.ejs', {title: 'Detalle del producto' , style: '/products/productDetail' })%>
+
+<body>
+    <!--Header-->
+    <%-include('../partials/header.ejs')%>
+
+ <!-- product detail -->
+             <div class="container-title">
+                 <a href="/">INICIO </a>
+                 <a href="/product/list">LISTADO </a>
+             </div>
+
+             <article class="Detail-product">
+                <div class="product">
+                 <div class="product-img">
+                    <img src="/images/products/<%=producto ? producto.image : ''%>" alt="img-producto" />
+                 </div>
+                <div class="container-description">
+                    <p class="title-description">
+                    <%= producto.description %>
+                    </p>
+                    <div class="container-additional-information">
+                        <div class="title-additional-information">
+                            <h4>ESPECIFICACIÓNES</h4>
+                            <ul class="text-additional">
+                                <li>Capellada: <%= producto.upper %>.</li>
+                                <li>Forro: <%= producto.cover %>.</li>
+                                <li>Suela: <%= producto.sole %>.</li>
+                                <li>Origen: <%= producto.origin %>.</li>
+                            </ul>
+                        </div>
+                   </div>
+                   
+            </div>
+            </div>
+        <section class="container-info-detail">
+           <div class="info-product">
+            <% if (producto.discount) { %>
+            <div class="title-ofert"> <p class="titulo-oferta">SALE</p> </div>
+            <% } %>
+              <div class="product-name">
+              <h4><%= producto.name %> </h4>
+              </div>
+             <div class="reputation-icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+                <a href=""><span>3</span> RESEÑAS</a>
+            </div> 
+                <div class="container-pri-due-dev">
+                    <p class="container-price">
+                       <span>$ <%= producto.price.toLocaleString('es-ES')%></span>
+                    </p>
+                   <p class="container-dues">
+                    <%= producto.dues%> CUOTAS SIN INTERES
+                    </p>
+                  <p class="free-return">
+                        DEVOLUCIÓN GRATIS
+                    </p>
+                </div>
+
+                <div class="container-form-group">
+                    <div class="form-group">
+                        <label for="colour">COLOR</label>
+                           <select name="colour" id="colour">
+                                <option disabled selected value="">
+                                    ELIGE UNA OPCIÓN
+                                </option>
+                                  <% producto.color.forEach(colores => { %>
+                                <option value=""><%= colores.name %></option>
+                                  <% }) %>
+                           </select>
+                   </div>
+
+                            <div class="form-group"><label for="size">TALLE </label>
+                                <select name="size" id="size">
+                                   <option disabled selected value="">
+                                         ELIGE UNA OPCIÓN
+                                   </option>
+                                       <% producto.size.forEach(talle => { %>
+                                   <option value=""><%= talle.number %></option>
+                                       <% }) %>
+                               </select>
+                           </div>
+            </div>
+                 <div class="containers-buttons">
+                    <!--Comprar ahora con if--> 
+                    <% if(producto.stock > 0) {%>
+                    <button class="btn-add-to-cart1">
+                        <form action="/product/addToCart/<%= producto.id %>" method="POST">
+                            <button type="submit" class="btn-add-to-cart">COMPRAR AHORA</button>
+                       </form>
+                        <!-- <p>COMPRAR AHORA</p> -->
+                    </button>
+                    <form action="/product/addToCart/<%= producto.id %>" method="POST">
+                        <button type="submit" class="btn-add-to-cart">AGREGAR AL CARRITO</button>
+                   </form>
+                   <% } %>
+                 <% if(isLogged && userLogged.admin === 1) {%>
+                    <form action="/product/<%= producto.id %>/edit" method="GET">
+                        <button class="btn-edit btn-add-to-cart"type="submit">EDITAR PRODUCTO</button>
+                    </form> 
+                    <form action="/product/delete/<%= producto.id %>?_method=DELETE" method="POST">
+                        <div>
+                            <button class="btn-edit btn-add-to-cart"type="submit">ELIMINAR PRODUCTO</button>
+                        </div>
+                    </form>  
+                 <% } %>
+                </div>
+                    <div class="last-product">
+                      <% if(producto.stock) { %>
+                  <h4>¡HAY STOCK DISPONIBLE!</h4>
+                      <% }else { %>
+                      <i class="fa-solid-fa-plus"></i>¡SIN STOCK!</button>
+                      <% } %>
+                    </div>
+                    <section class="container-social">
+                        <span>COMPARTIR</span>
+                               <div class="container-buttons-social">
+                                   <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                                   <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                   <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                   <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                   <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                               </div>
+                   </section>
+   
+                </div>
+           </div>
+        </section>
+        </article>
+
+         <!--   __________________Productos Relacionados_______________________ -->
+        
+                       <div class="container-title-2">
+                      <p> NOSOTROS TE RECOMENDAMOS </hp>
+                    </div>
+
+             <article class="articles-related">
+                <% interes.forEach( productoI => { %>
+                    <div class="container-article-related">
+                       <div class="product-card">
+                        <div class="img-card">
+                            <img src="/images/products/<%=productoI.image %>" alt="product-1"/>
+                        </div>
+                    <div class="info-card">
+                        <div class="text-product">
+                            <h4><%= productoI.name %></h4>
+                              <p class="discount">
+                                 <%=productoI.discount%> % OFF
+                              </p>
+                              <p class="description">
+                                <%=productoI.description%>
+                             </p>
+                             <p class="precio">$ <%=productoI.price%>
+                        </div>
+                    </div>
+                      </div>
+                          </div>
+                                <% }) %>
+             </article>
+                <section class="banner-img">
+                    <img src="/images/Banner-prodDetail/banner-card1.jpg" alt="" />
+                   <!--  <video src="/videos/video-banner.mp4" alt="Video Banner" controls></video> -->
+                </section>
+
+<%-include('../partials/footer.ejs') %>
+
+</body>
+</html>
+

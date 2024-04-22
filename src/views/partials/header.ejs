@@ -1,0 +1,58 @@
+<header>
+    <div class="top-header-main">
+        <div class="top-header1"><a href="/"><img src="/images/logopng.png" alt=""></a>
+        </div>
+        <div class="top-header2">
+            <div class="burger-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="search-bar"><form action="/product/list" method="get"><input class="searchBar" name="searchBar" type="text" placeholder="Busca tu calzado favorito..."><button type="submit"></form><i class="fa-solid fa-magnifying-glass"></i></button></div></div>
+        <div class="top-header3"><a href='/product/list'><!-- <button ><i class="fa-solid fa-magnifying-glass"></i></button> --></a><button><i class="fa-solid fa-location-dot"></i></button><a href="/product/cart"><button><i class="fa-solid fa-bag-shopping"></i></button></a></div>
+    </div>
+
+    <div class="bottom-header">
+
+        <nav>
+        <div class="nav-1">
+            <ul>
+                <li><i class="fa-solid fa-location-dot"></i><a href="">Ingresa tu domicilio</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-2">
+            <ul>
+                <li><a href="/#marcas">Categorías</a></li>
+                <li><a href="/#ofertas">Ofertas</a></li>
+                <!-- <li><a href="#">Historial</a></li> --> <!--Esto va a ir en la parte de usuarios loggeados-->
+                <li><a href="/product/list">Listado</a></li>
+                <!-- <li><a href="#">Vender</a></li> --> <!--Esto tambien en la parte de usuarios loggeados-->
+                <li><a href="/support">Ayuda</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-3" >
+            <ul>
+                    <% if(locals.isLogged) { %>
+                         <li class="dropdown">
+                <a href="#" class="dropdown-boton"><i class="fa-solid fa-user"></i></a>
+                <ul class="dropdown-contenido">
+                    <li><a href="/user/profile">Mi Perfil</a></li>
+                    <% if(isLogged && userLogged.admin === 1) {%>
+                        <li><a href="/product/create">Crear Producto</a></li>
+                        <li><a href="/product/adminproduct">Administrar productos</a></li>
+                        <li><a href="/user/list">Administrar usuarios</a></li>
+                    <% } %>
+                </ul>
+            </li>
+                        <li><a href="/user/logout">Cerrar sesion</a></li>                 
+                        
+                    <% } else { %>
+                        <li><a href="/user/login">Ingresa</a></li>
+                        <li><a href="/user/register">Crea tu cuenta</a></li>
+                    <% } %>
+
+            </ul>
+        </div>
+        </nav>  
+    </div>
+</header>

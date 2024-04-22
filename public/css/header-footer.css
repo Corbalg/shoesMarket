@@ -1,0 +1,394 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Nunito;
+    font-weight: 100;
+}
+
+header {
+    width: 100%;
+    z-index: 1;
+}
+
+/* Contenedor principal de arriba del header */
+.top-header-main{
+    box-sizing: border-box; 
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    height: 60px;
+    background: linear-gradient(90deg, rgba(58, 125, 159, 0.975) 0%, rgb(7, 140, 164) 100%);
+}
+
+/* Las dos cajas ocupando las dos mitades de la pantalla en el header */
+.top-header1, .top-header2 {
+    max-height: 100%;
+    width: 50%;
+    padding: 5px;
+    display: flex;  
+    align-items: center;
+    justify-content: start; 
+}
+
+/* Logo en el header */
+.top-header1 img {
+    max-width: 100%;
+    max-height: 80px;
+}
+
+/* Barra de búsqueda (está dentro de .top-header2) */
+.search-bar {
+    display: none;
+    background-color: rgba(64, 84, 94, 0.783);
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+
+.search-bar form {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.758); 
+}
+/* Input de barra de búsqueda */
+.top-header2 input {
+    padding: 5px;
+    border: none;
+    outline: none;
+    width: 100%;
+    flex: 1;
+    background-color: #19000000;
+    color: white;
+}
+/* Botón de barra de búsqueda */
+.top-header3 button, .top-header2 button {
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #ffffff;
+    align-self: stretch;
+    margin: 5px;
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: 100;
+}
+/* La tercera caja que NO sabemos qué contiene aún en el topheader. Planeo no hacerla visible o desplazarla hacia abajo en mobile.*/
+.top-header3 {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    order: 1;
+    text-align: center;
+    color: white;
+}
+
+/*La parte de abajo del header*/
+.bottom-header {
+    display: flex;
+    padding: 10px;
+    background-color: rgb(29, 52, 63);
+}
+nav ul li {
+    display: inline-block;
+    position: relative; /* Necesario para posicionar el dropdown */
+  }
+
+/*Haciendo flex el nav*/
+nav {
+    display: flex;
+    flex: 1;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/*Haciendo flex la unorderer list del nav y quitandole estilos*/
+nav ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap; 
+}
+
+/*Quitandole los estilos a los <a> y agregando un margin para que no se junte el texto*/
+nav a , .top-header3 {
+    text-decoration: none;
+    margin-left: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-weight: 100;   
+ 
+}
+
+/*Estableciendo tamaño y flex a cajas del bottom-header*/
+ .nav-1 {
+    display: flex;
+    width: 15%;
+    color: white;
+ }
+
+ .nav-1 ul {
+    justify-content: center;
+ }
+
+ /*Con la caja 2 trabajamos por separado para alinear mejor el contenido*/
+ .nav-2{
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.nav-2 ul{
+justify-content: center;
+}
+
+/*Tuve que hacer esto para que el login quede contra la derecha, evitando repetir código lo más posible*/
+.nav-3 {
+    display: flex;
+    justify-content: end;
+    width: 30%;
+    flex: 1;
+}
+
+.nav-3 ul{
+    flex-direction: row-reverse;
+}
+
+.nav-3 i {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+}
+
+
+/*Este burger menu es generico (Pienso que se vería mejor en una esquina en vez de en el medio, me guié con el de mercadoLiebre)*/
+.burger-menu {
+    background-color: rgba(0, 0, 0, 0.768);
+    color: white;
+    border: solid 1px white;
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+/* Contenido del dropdown */
+.dropdown-contenido {
+    display: none;
+    width: 180px;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 5px;
+    margin-top: 0;
+    border-radius: 5px;
+}
+
+/* Enlaces dentro del dropdown */
+.dropdown-contenido a {
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Cambia el color de fondo de letra del dropdown cuando pasas el mouse por arriba */
+.dropdown-contenido a:hover {
+    color: rgb(0, 162, 255);
+}
+
+/* Muestra el contenido del dropdown cuando pasas el mouse sobre el enlace "Perfil" */
+.nav-3 .dropdown:hover .dropdown-contenido {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    left: auto; /* Para que no se salga de la pantalla */
+}
+
+/* Estilo para el botón del dropdown */
+.nav-3 .dropdown .dropdown-boton {
+    display: inline-block;
+}
+
+/* Estilos para los li del dropdown */
+.dropdown-contenido li {
+    list-style-type: none;
+}
+
+/* Estilos del footer */
+footer{
+    background-color: rgb(0, 16, 29);
+    padding: 15px;
+    margin-top: 10%;
+}
+
+footer h4 {
+    margin-bottom: 10px;
+}
+
+.footer-main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.footer-1 , .footer-2 , .footer-3 , .footer-4 , .footer-5 , .footer-6 {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    color: white;
+    padding: 10px;
+}
+
+footer ul {
+    list-style: none;
+    font-size: 0.8rem;
+}
+
+footer ul li{
+    margin-top: 10px;
+}
+
+.footer-bottom {
+    border-top: solid 1px #e2e2e2;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    margin-bottom: 15px
+}
+.footer-bottom ul{
+    text-align: center;
+    width: 100%;
+    flex-wrap: wrap;
+    flex: 1;
+    margin-top: 10px;
+    font-size: 0.7rem;
+}
+
+#caja3 {
+    width: 90%;
+}
+
+/*Testing*/
+.intento-caja3 {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    list-style: none;
+}
+
+.intento-caja3 a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+
+nav li:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s step;
+}
+
+
+
+
+
+
+/* Media querys */
+
+@media (min-width: 361px) {
+    .top-header-main{
+        justify-content: space-between;
+    }
+    .container-flex {
+        display: flex;
+    }
+    .top-header1 {
+        justify-content: flex-start;
+        width: 30%;
+    }
+    .top-header2 {
+        width: 50%;
+    }
+    .top-header3 {
+        justify-content: flex-end;
+        width: 20%;
+        align-self: center;
+    }
+
+    /*Footer*/
+    .footer-1 , .footer-2 , .footer-3 , .footer-4 , .footer-5 , .footer-6 {
+        width: 30%;
+    }
+
+}
+
+@media (max-width: 769px) {
+    nav {
+        display: none;
+    }
+    .top-header3 {
+        display: none;
+    }
+    .top-header2 {
+        justify-content: end;
+    }
+    .bottom-header {
+        display: none;
+    }
+
+
+    
+}
+
+@media (min-width: 769px) {
+    .search-bar {
+        display: flex;
+    }
+    .burger-menu {
+        display: none;
+    }
+    .footer-1 , .footer-2 , .footer-3 , .footer-4 , .footer-5 , .footer-6 {
+        width: 15%;
+    }
+    .footer-bottom ul{
+        display: flex;
+        justify-content: space-around;
+    }
+    .footer-bottom ul li{
+        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
+        flex: 1;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .top-header1 {
+    justify-content: flex-start;
+    width: 20%;
+    }
+
+    .top-header2 {
+    justify-content: center;
+    width: 50%;
+    }
+}

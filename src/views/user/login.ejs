@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('../partials/head.ejs', {title: 'Iniciar sesion', style: '/user/login'})%>
+<body>
+    <%-include('../partials/header.ejs')%>
+    <main>
+        <section>
+            <div class="login-title">
+            <h2>Iniciar sesion</h2>
+            </div>
+            <form action="/user/login" method="POST" class="login-form">
+                <div class="form">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="form">
+                    <label for="password">Contraseña</label> 
+                    <input type="password" name="password" id="password">
+                    <% if (locals.errors && errors.email) { %>
+                        <div>
+                            <p class="error-msg"> <%= errors.email.msg %></p>
+                        </div>
+                    <% } %>
+                    <div><a class="recuperar" href="recuperarpassword">¿Olvidaste tu contraseña?</a></div>
+                </div>
+                <div class="caja-errors">
+                    <div class="errors">
+                        <ul></ul>
+                    </div>
+                </div>
+                <div class="recordar">
+                        <input type="checkbox" name ="recordar"> Recordarme
+                </div>
+                <div class="boton">
+                    <button class="button-login" type="submit">Iniciar sesion</button>
+                </div>
+            </form>
+            <p class="recup">¿No tienes una cuenta? <a class="recuperar" href="register">Crear Cuenta</a></p>
+        </section>
+    </main>
+    <%-include('../partials/footer.ejs')%>
+    <script src="/js/login.js"></script>
+</body>
+</html>
